@@ -1,61 +1,71 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import SearchControl from './SearchControl';
 
 const Container = styled.div`
   width: 392px;
   height: 48px;
+  margin: 8px;
   position: relative;
+  z-index: 999;
 `;
 
 const Input = styled.input`
   font-size: 16px;
-  width: 100%;
+  width: calc(100% - 96px);
   height: 100%;
-  border: 1px solid transparent;
+  border: 0;
   border-radius: 24px;
   box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
   outline: 0;
-  padding-left: 40px;
-`;
-
-const Controls = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 48px;
-  height: 48px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding: 0 48px 0 48px;
 `;
 
 const Results = styled.div`
+  position: absolute;
+  top: 0;
+  bottom: 0;
   width: 500px;
-  height: 500px;
   background-color: black;
 `;
 
 const Search = () => {
   const [active, setActive] = useState(false);
+  const [text, setText] = useState('');
 
-  const toggleActive = () => {
-    setActive(!active);
+  const exitSearch = () => {
+    setActive(false);
+    setText('');
   };
 
   return (
     <>
       <Container>
-        <Controls>
-          <FontAwesomeIcon 
-            icon={active ? "chevron-left" : "search"}
-            onClick={() => toggleActive()}
+        {active ?
+          <SearchControl
+            position="left"
+            icon="chevron-left"
+            onClick={() => exitSearch()}
+          /> :
+          <SearchControl
+            position="left"
+            icon="search"
+            onClick={() => setActive(true)}
           />
-        </Controls>
+        }
+        {text.length > 0 && 
+          <SearchControl 
+            position="right"
+            icon="times"
+            onClick={() => setText('')}
+          />
+        }
         <Input 
-          type="search"
+          type="text"
           placeholder="Find a trail"
-          onClick={() => toggleActive()}
+          value={text}
+          onClick={() => setActive(true)}
+          onInput={(e) => setText(e.currentTarget.value)}
         />
       </Container>
       {active && (<Results></Results>)}
