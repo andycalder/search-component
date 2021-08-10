@@ -1,10 +1,19 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import SearchControl from './SearchControl';
+import SearchPage from './SearchPage';
+
+const Controls = styled.div`
+  width: 392px;
+  max-height: 100vh;
+  display: flex;
+  flex-direction: column;
+`;
 
 const Container = styled.div`
-  width: 392px;
+  width: 100%;
   height: 48px;
+  flex-shrink: 0;
   margin: 8px;
   position: relative;
   z-index: 999;
@@ -21,15 +30,7 @@ const Input = styled.input`
   padding: 0 48px 0 48px;
 `;
 
-const Results = styled.div`
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 500px;
-  background-color: black;
-`;
-
-const Search = () => {
+const SearchBar = () => {
   const [active, setActive] = useState(false);
   const [text, setText] = useState('');
 
@@ -39,7 +40,7 @@ const Search = () => {
   };
 
   return (
-    <>
+    <Controls>
       <Container>
         {active ?
           <SearchControl
@@ -68,9 +69,9 @@ const Search = () => {
           onInput={(e) => setText(e.currentTarget.value)}
         />
       </Container>
-      {active && (<Results></Results>)}
-    </>
+      {active && <SearchPage />}
+    </Controls>
   );
 };
 
-export default Search;
+export default SearchBar;

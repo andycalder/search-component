@@ -5,14 +5,18 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faSearch,
   faChevronLeft,
-  faTimes
+  faTimes,
+  faCircle,
+  faSquare
 } from '@fortawesome/free-solid-svg-icons';
-import App from './App';
+import SearchBar from './SearchBar';
 
 library.add(
   faSearch,
   faChevronLeft,
-  faTimes
+  faTimes,
+  faCircle,
+  faSquare
 );
 
 const GlobalStyle = createGlobalStyle`
@@ -25,7 +29,7 @@ const GlobalStyle = createGlobalStyle`
 ReactDOM.render(
   <React.StrictMode>
     <GlobalStyle />
-    <App />
+    <SearchBar />
   </React.StrictMode>,
   document.getElementById('root')
 );
