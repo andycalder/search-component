@@ -69,7 +69,7 @@ const SearchBar = () => {
           onInput={(e) => setText(e.currentTarget.value)}
         />
       </Container>
-      {active && <SearchPage />}
+      {active && <SearchPage query={text} />}
     </Controls>
   );
 };

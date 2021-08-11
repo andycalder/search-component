@@ -16,8 +16,17 @@ const List = styled.ul`
   padding-left: 0;
 `;
 
-const SearchPage = () => {
-  const listItems = trails.map((trail, index) => {
+ interface Props {
+   query: string;
+ }
+
+const SearchPage = (props: Props) => {
+  const results = trails.filter(trail => {
+    const regex = new RegExp(props.query, 'i');
+    return regex.test(trail.name);
+  });
+
+  const listItems = results.map((trail, index) => {
     return <SearchItem key={index} trail={trail} />
   });
 
