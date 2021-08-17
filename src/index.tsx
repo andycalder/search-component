@@ -9,6 +9,10 @@ import {
   faCircle,
   faSquare
 } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCircle as faCircleOutline,
+  faSquare as faSquareOutline
+} from '@fortawesome/free-regular-svg-icons';
 import SearchBar from './SearchBar';
 
 library.add(
@@ -16,11 +20,14 @@ library.add(
   faChevronLeft,
   faTimes,
   faCircle,
-  faSquare
+  faSquare,
+  faCircleOutline,
+  faSquareOutline
 );
 
 const GlobalStyle = createGlobalStyle`
   body {
+    font-family: 'Prompt', sans-serif;
     margin: 0;
     padding: 0;
   }
