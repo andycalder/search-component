@@ -6,23 +6,13 @@ import {
   faSearch,
   faChevronLeft,
   faTimes,
-  faCircle,
-  faSquare
 } from '@fortawesome/free-solid-svg-icons';
-import {
-  faCircle as faCircleOutline,
-  faSquare as faSquareOutline
-} from '@fortawesome/free-regular-svg-icons';
-import SearchBar from './SearchBar';
+import SearchBar from './components/SearchBar';
 
 library.add(
   faSearch,
   faChevronLeft,
-  faTimes,
-  faCircle,
-  faSquare,
-  faCircleOutline,
-  faSquareOutline
+  faTimes
 );
 
 const GlobalStyle = createGlobalStyle`

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import SearchItem, { Trail } from './SearchItem';
-import data from './trails.json';
+import SearchItem from './SearchItem';
+import { Trail } from '../data/trail';
+import data from '../data/trails.json';
 
 const trails = data.trails.map(trail => {
   return Object.assign(new Trail(), trail);
