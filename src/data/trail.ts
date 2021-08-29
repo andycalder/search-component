@@ -5,4 +5,5 @@ export class Trail {
 	difficulty!: Difficulty;
 	type!: 'technical' | 'freeride';
 	zone!: 'Fitzsimmons Zone' | 'Garbanzo Zone' | 'Creekside Zone' | 'Peak Zone';
+	start!: [number, number];
 }

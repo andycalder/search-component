@@ -1,11 +1,7 @@
 import styled from 'styled-components';
-import SearchItem from './SearchItem';
+import { useState, useEffect } from 'react';
+import SearchSection from './SearchSection';
 import { Trail } from '../data/trail';
-import data from '../data/trails.json';
-
-const trails = data.trails.map(trail => {
-  return Object.assign(new Trail(), trail);
-});
 
 const Container = styled.div`
   width: 100%;
@@ -13,51 +9,31 @@ const Container = styled.div`
   background-color: #1a1d21;
 `;
 
-const List = styled.ul`
-  list-style: none;
-  padding-left: 0;
-  margin: 0;
-`;
-
-const Header = styled.div`
-  position: sticky;
-  top: 0px;
-  width: 100%;
-  background-color: orange;
-`;
-
-interface SectionProps {
-  name: string;
-  results: Array<Trail>;
-}
-
-const Section = (props: SectionProps) => {
-  const renderSearchItem = ((trail: Trail, index: number) => {
-    return <SearchItem key={index} trail={trail} />
-  });
-
-  return (
-    <List>
-      <Header>{props.name}</Header>
-      {props.results.filter(t => t.zone === props.name).map(renderSearchItem)}
-    </List>
-  );
-};
-
 interface Props {
   query: string;
 }
 
 const SearchPage = (props: Props) => {
-  const results = trails.filter(trail => {
+  const [items, setItems] = useState<any[]>([]);
+
+  useEffect(() => {
+    fetch('http://127.0.0.1:8000/api/v1/trails')
+      .then(response => response.json())
+      .then(data => data.trails)
+      .then(trails => setItems(trails.map((trail: any) => Object.assign(new Trail(), trail))));
+  }, []);
+
+  const results = items.filter(trail => {
     const regex = new RegExp(props.query, 'i');
     return regex.test(trail.name);
   });
 
   return (
     <Container>
-      <Section name="Peak Zone" results={results}/>
-      <Section name="Creekside Zone" results={results}/>
+      <SearchSection name="Fitzsimmons Zone" results={results}/>
+      <SearchSection name="Garbanzo Zone" results={results}/>
+      <SearchSection name="Creekside Zone" results={results}/>
+      <SearchSection name="Peak Zone" results={results}/>
     </Container>
   )
 };
