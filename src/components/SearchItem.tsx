@@ -6,17 +6,16 @@ const ListItem = styled.li`
   width: 100%;
   height: 45px;
   display: flex;
-  background-color: lightgrey;
 `;
 
 const Name = styled.div`
+  color: darkgray;
   line-height: 45px;
   flex-grow: 1;
-  border-bottom: 1px solid gray;
 `;
 
 const Icon = styled.div`
-  width: 60px;
+  width: 80px;
   height: 100%;
   display: flex;
   justify-content: center;

@@ -10,6 +10,7 @@ const trails = data.trails.map(trail => {
 const Container = styled.div`
   width: 100%;
   overflow: scroll;
+  background-color: #1a1d21;
 `;
 
 const List = styled.ul`
