@@ -25,10 +25,12 @@ const SearchSection = (props: SectionProps) => {
     return <SearchItem key={index} trail={trail} />
   });
 
+  const items = props.results.filter(t => t.zone === props.name).map(renderSearchItem)
+
   return (
     <List>
-      <Header>{props.name}</Header>
-      {props.results.filter(t => t.zone === props.name).map(renderSearchItem)}
+      {items.length > 0 && <Header>{props.name}</Header>}
+      {items}
     </List>
   );
 };

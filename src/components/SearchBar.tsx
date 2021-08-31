@@ -2,6 +2,8 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import SearchControl from './SearchControl';
 import SearchPage from './SearchPage';
+import FilterButton from './FilterButton';
+import { Difficulty } from '../data/trail';
 
 const Controls = styled.div`
   width: 392px;
@@ -19,6 +21,14 @@ const Container = styled.div`
   z-index: 999;
 `;
 
+const ScrollingWrapper = styled.div`
+  display: flex;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+  width: 100%;
+  overflow-x: auto;
+`;
+
 const Input = styled.input`
   font-size: 16px;
   width: calc(100% - 96px);
@@ -33,10 +43,12 @@ const Input = styled.input`
 const SearchBar = () => {
   const [active, setActive] = useState(false);
   const [text, setText] = useState('');
+  const [filter, setFilter] = useState<null | Difficulty>(null);
 
   const exitSearch = () => {
     setActive(false);
     setText('');
+    setFilter(null);
   };
 
   return (
@@ -69,7 +81,34 @@ const SearchBar = () => {
           onInput={(e) => setText(e.currentTarget.value)}
         />
       </Container>
-      {active && <SearchPage query={text} />}
+      <ScrollingWrapper>
+        <FilterButton 
+          icon="beginner"
+          text="Beginner"
+          onClick={() => setFilter('beginner')}
+        />
+        <FilterButton 
+          icon="intermediate"
+          text="Intermediate"
+          onClick={() => setFilter('intermediate')}
+        />
+        <FilterButton 
+          icon="advanced"
+          text="Advanced"
+          onClick={() => setFilter('advanced')}
+        />
+        <FilterButton 
+          icon="expert"
+          text="Expert"
+          onClick={() => setFilter('expert')}
+        />
+        <FilterButton 
+          icon="proline"
+          text="Proline"
+          onClick={() => setFilter('proline')}
+        />
+      </ScrollingWrapper>
+      {active && <SearchPage query={text} filter={filter} />}
     </Controls>
   );
 };
