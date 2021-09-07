@@ -6,12 +6,14 @@ const List = styled.ul`
   list-style: none;
   padding-left: 0;
   margin: 0;
+  font-size: 1.4rem;
 `;
 
 const Header = styled.div`
   position: sticky;
   top: 0px;
   width: 100%;
+  padding-left: 12px;
   background-color: orange;
 `;
 

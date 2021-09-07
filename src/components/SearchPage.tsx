@@ -6,7 +6,6 @@ import { Trail, Difficulty } from '../data/trail';
 const Container = styled.div`
   width: 100%;
   overflow: scroll;
-  background-color: #1a1d21;
 `;
 
 interface Props {

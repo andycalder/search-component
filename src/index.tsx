@@ -16,8 +16,11 @@ library.add(
 );
 
 const GlobalStyle = createGlobalStyle`
-  body {
+  html {
+    font-size: 10px;
     font-family: 'Prompt', sans-serif;
+  }
+  body {
     margin: 0;
     padding: 0;
   }

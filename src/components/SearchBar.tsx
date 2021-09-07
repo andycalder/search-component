@@ -10,13 +10,15 @@ const Controls = styled.div`
   max-height: 100vh;
   display: flex;
   flex-direction: column;
+  ${(props: {active: boolean}) => props.active && 'background-color: rgb(33, 33, 33)'};
 `;
 
 const Container = styled.div`
-  width: 100%;
   height: 48px;
   flex-shrink: 0;
-  margin: 8px;
+  display: flex;
+  margin: 12px;
+  margin-bottom: 0;
   position: relative;
   z-index: 999;
 `;
@@ -30,13 +32,15 @@ const ScrollingWrapper = styled.div`
 `;
 
 const Input = styled.input`
+  color: white;
+  background-color: rgb(33, 33, 33);
   font-size: 16px;
-  width: calc(100% - 96px);
+  flex: 1;
   height: 100%;
-  border: 0;
+  border: 1px solid rgb(89, 92, 97);
   border-radius: 24px;
-  box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
   outline: 0;
+  margin: 0;
   padding: 0 48px 0 48px;
 `;
 
@@ -52,7 +56,7 @@ const SearchBar = () => {
   };
 
   return (
-    <Controls>
+    <Controls active={active}>
       <Container>
         {active ?
           <SearchControl

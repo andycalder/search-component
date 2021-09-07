@@ -9,7 +9,7 @@ const ListItem = styled.li`
 `;
 
 const Name = styled.div`
-  color: darkgray;
+  color: white;
   line-height: 45px;
   flex-grow: 1;
 `;
