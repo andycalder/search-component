@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import SearchControl from './SearchControl';
 import SearchPage from './SearchPage';
 import FilterButton from './FilterButton';
@@ -7,10 +7,12 @@ import { Difficulty } from '../data/trail';
 
 const Controls = styled.div`
   width: 392px;
-  max-height: 100vh;
   display: flex;
   flex-direction: column;
-  ${(props: {active: boolean}) => props.active && 'background-color: rgb(33, 33, 33)'};
+  ${(props: {active: boolean}) => props.active && css`
+    height: 100vh;
+    background-color: rgb(33, 33, 33);
+  `}
 `;
 
 const Container = styled.div`
@@ -29,6 +31,10 @@ const ScrollingWrapper = styled.div`
   flex-shrink: 0;
   width: 100%;
   overflow-x: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const Input = styled.input`
@@ -53,6 +59,16 @@ const SearchBar = () => {
     setActive(false);
     setText('');
     setFilter(null);
+  };
+
+  const renderFilterButton = (difficulty: Difficulty) => {
+    return (
+      <FilterButton 
+        difficulty={difficulty}
+        active={difficulty === filter}
+        onClick={() => setFilter(difficulty)}
+      />
+    );
   };
 
   return (
@@ -86,31 +102,11 @@ const SearchBar = () => {
         />
       </Container>
       <ScrollingWrapper>
-        <FilterButton 
-          icon="beginner"
-          text="Beginner"
-          onClick={() => setFilter('beginner')}
-        />
-        <FilterButton 
-          icon="intermediate"
-          text="Intermediate"
-          onClick={() => setFilter('intermediate')}
-        />
-        <FilterButton 
-          icon="advanced"
-          text="Advanced"
-          onClick={() => setFilter('advanced')}
-        />
-        <FilterButton 
-          icon="expert"
-          text="Expert"
-          onClick={() => setFilter('expert')}
-        />
-        <FilterButton 
-          icon="proline"
-          text="Proline"
-          onClick={() => setFilter('proline')}
-        />
+        {renderFilterButton('Beginner')}
+        {renderFilterButton('Intermediate')}
+        {renderFilterButton('Advanced')}
+        {renderFilterButton('Expert')}
+        {renderFilterButton('Proline')}
       </ScrollingWrapper>
       {active && <SearchPage query={text} filter={filter} />}
     </Controls>

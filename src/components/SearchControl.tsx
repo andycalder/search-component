@@ -13,6 +13,7 @@ interface Props {
 }
 
 const Container = styled.div`
+  cursor: pointer;
   position: absolute;
   top: 0;
   ${(props: Position) => props.position}: 0;

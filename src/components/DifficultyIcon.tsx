@@ -6,11 +6,11 @@ import proline from '../assets/proline.svg';
 import { Difficulty } from '../data/trail';
 
 const icons = {
-	beginner: beginner,
-	intermediate: intermediate,
-	advanced: advanced,
-	expert: expert,
-	proline: proline
+	'Beginner': beginner,
+	'Intermediate': intermediate,
+	'Advanced': advanced,
+	'Expert': expert,
+	'Proline': proline
 };
 
 interface Props {

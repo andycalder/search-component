@@ -1,9 +1,9 @@
-export type Difficulty = 'beginner' | 'intermediate' | 'advanced' | 'expert' | 'proline';
+export type Difficulty = 'Beginner' | 'Intermediate' | 'Advanced' | 'Expert' | 'Proline';
 
 export class Trail {
 	name!: string;
 	difficulty!: Difficulty;
-	type!: 'technical' | 'freeride';
+	type!: 'Technical' | 'Freeride';
 	zone!: 'Fitzsimmons Zone' | 'Garbanzo Zone' | 'Creekside Zone' | 'Peak Zone';
 	start!: [number, number];
 
