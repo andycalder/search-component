@@ -11,13 +11,14 @@ const Container = styled.div`
 interface Props {
   query: string;
   filter: Difficulty | null;
+  showTrail: (trail: Trail) => void;
 }
 
 const SearchPage = (props: Props) => {
   const [items, setItems] = useState<any[]>([]);
 
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/api/v1/trails')
+    fetch('https://mountain-maps-api.herokuapp.com/api/v1/trails')
       .then(response => response.json())
       .then(data => data.trails)
       .then(trails => setItems(trails.map(Trail.new)));
@@ -34,10 +35,10 @@ const SearchPage = (props: Props) => {
 
   return (
     <Container>
-      <SearchSection name="Fitzsimmons Zone" results={results}/>
-      <SearchSection name="Garbanzo Zone" results={results}/>
-      <SearchSection name="Creekside Zone" results={results}/>
-      <SearchSection name="Peak Zone" results={results}/>
+      <SearchSection name="Fitzsimmons Zone" results={results} showTrail={props.showTrail}/>
+      <SearchSection name="Garbanzo Zone" results={results} showTrail={props.showTrail}/>
+      <SearchSection name="Creekside Zone" results={results} showTrail={props.showTrail}/>
+      <SearchSection name="Peak Zone" results={results} showTrail={props.showTrail}/>
     </Container>
   )
 };

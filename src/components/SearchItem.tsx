@@ -6,35 +6,21 @@ const ListItem = styled.li`
   width: 100%;
   height: 45px;
   display: flex;
-`;
-
-const Name = styled.div`
+  cursor: pointer;
   color: white;
   line-height: 45px;
-  flex-grow: 1;
-`;
-
-const Icon = styled.div`
-  width: 80px;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 interface Props {
   trail: Trail;
+  showTrail: (trail: Trail) => void;
 }
 
 const SearchItem = (props: Props) => {
   return (
-    <ListItem>
-      <Icon>
-        <DifficultyIcon difficulty={props.trail.difficulty} />
-      </Icon>
-      <Name>
-        {props.trail.name}
-      </Name>
+    <ListItem onClick={() => props.showTrail(props.trail)}>
+      <DifficultyIcon width={80} difficulty={props.trail.difficulty} />
+      {props.trail.name}
     </ListItem>
   );
 }

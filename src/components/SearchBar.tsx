@@ -3,7 +3,8 @@ import styled, { css } from 'styled-components';
 import SearchControl from './SearchControl';
 import SearchPage from './SearchPage';
 import FilterButton from './FilterButton';
-import { Difficulty } from '../data/trail';
+import TrailCard from './TrailCard';
+import { Difficulty, Trail } from '../data/trail';
 
 const Controls = styled.div`
   width: 392px;
@@ -54,11 +55,17 @@ const SearchBar = () => {
   const [active, setActive] = useState(false);
   const [text, setText] = useState('');
   const [filter, setFilter] = useState<null | Difficulty>(null);
+  const [trail, setTrail] = useState<null | Trail>(null);
 
   const exitSearch = () => {
     setActive(false);
     setText('');
     setFilter(null);
+  };
+
+  const showTrail = (trail: Trail) => {
+    exitSearch();
+    setTrail(trail);
   };
 
   const renderFilterButton = (difficulty: Difficulty) => {
@@ -72,44 +79,47 @@ const SearchBar = () => {
   };
 
   return (
-    <Controls active={active}>
-      <Container>
-        {active ?
-          <SearchControl
-            position="left"
-            icon="chevron-left"
-            onClick={() => exitSearch()}
-          /> :
-          <SearchControl
-            position="left"
-            icon="search"
+    <>
+      <Controls active={active}>
+        <Container>
+          {active ?
+            <SearchControl
+              position="left"
+              icon="chevron-left"
+              onClick={() => exitSearch()}
+            /> :
+            <SearchControl
+              position="left"
+              icon="search"
+              onClick={() => setActive(true)}
+            />
+          }
+          {text.length > 0 && 
+            <SearchControl 
+              position="right"
+              icon="times"
+              onClick={() => setText('')}
+            />
+          }
+          <Input 
+            type="text"
+            placeholder="Find a trail"
+            value={text}
             onClick={() => setActive(true)}
+            onInput={(e) => setText(e.currentTarget.value)}
           />
-        }
-        {text.length > 0 && 
-          <SearchControl 
-            position="right"
-            icon="times"
-            onClick={() => setText('')}
-          />
-        }
-        <Input 
-          type="text"
-          placeholder="Find a trail"
-          value={text}
-          onClick={() => setActive(true)}
-          onInput={(e) => setText(e.currentTarget.value)}
-        />
-      </Container>
-      <ScrollingWrapper>
-        {renderFilterButton('Beginner')}
-        {renderFilterButton('Intermediate')}
-        {renderFilterButton('Advanced')}
-        {renderFilterButton('Expert')}
-        {renderFilterButton('Proline')}
-      </ScrollingWrapper>
-      {active && <SearchPage query={text} filter={filter} />}
-    </Controls>
+        </Container>
+        <ScrollingWrapper>
+          {renderFilterButton('Beginner')}
+          {renderFilterButton('Intermediate')}
+          {renderFilterButton('Advanced')}
+          {renderFilterButton('Expert')}
+          {renderFilterButton('Proline')}
+        </ScrollingWrapper>
+        {active && <SearchPage query={text} filter={filter} showTrail={(trail: Trail) => showTrail(trail)} />}
+      </Controls>
+      {trail && !active && <TrailCard trail={trail} />}
+    </>
   );
 };
 

@@ -20,11 +20,12 @@ const Header = styled.div`
 interface SectionProps {
   name: string;
   results: Array<Trail>;
+  showTrail: (trail: Trail) => void;
 }
 
 const SearchSection = (props: SectionProps) => {
   const renderSearchItem = ((trail: Trail, index: number) => {
-    return <SearchItem key={index} trail={trail} />
+    return <SearchItem key={index} trail={trail} showTrail={props.showTrail}/>
   });
 
   const items = props.results.filter(t => t.zone === props.name).map(renderSearchItem)

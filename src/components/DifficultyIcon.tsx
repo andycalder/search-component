@@ -1,3 +1,4 @@
+import styled from 'styled-components';
 import beginner from '../assets/beginner.svg';
 import intermediate from '../assets/intermediate.svg';
 import advanced from '../assets/advanced.svg';
@@ -13,12 +14,25 @@ const icons = {
 	'Proline': proline
 };
 
+const Container = styled.div`
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  ${(props: {width?: number}) => props.width && `width: ${props.width}px;`}
+`;
+
 interface Props {
   difficulty: Difficulty;
+  width?: number;
 }
 
 const DifficultyIcon = (props: Props) => {
-	return (<img height="16" src={icons[props.difficulty]} alt={props.difficulty} />);
+	return (
+		<Container width={props.width}>
+			<img height="16" src={icons[props.difficulty]} alt={props.difficulty} />
+		</Container>
+	);
 };
 
 export default DifficultyIcon;
