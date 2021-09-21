@@ -8,6 +8,8 @@ import {
   faTimes,
 } from '@fortawesome/free-solid-svg-icons';
 import SearchBar from './components/SearchBar';
+import Map from './components/Map';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 library.add(
   faSearch,
@@ -29,6 +31,7 @@ const GlobalStyle = createGlobalStyle`
 ReactDOM.render(
   <React.StrictMode>
     <GlobalStyle />
+    <Map />
     <SearchBar />
   </React.StrictMode>,
   document.getElementById('root')

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import SearchControl from './SearchControl';
 import SearchPage from './SearchPage';
@@ -7,6 +7,9 @@ import TrailCard from './TrailCard';
 import { Difficulty, Trail } from '../data/trail';
 
 const Controls = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 392px;
   display: flex;
   flex-direction: column;
@@ -56,6 +59,13 @@ const SearchBar = () => {
   const [text, setText] = useState('');
   const [filter, setFilter] = useState<null | Difficulty>(null);
   const [trail, setTrail] = useState<null | Trail>(null);
+
+  useEffect(() => {
+    if (trail) {
+      const event = new CustomEvent('showTrail', { detail: trail });
+      document.dispatchEvent(event);
+    }
+  }, [trail]);
 
   const exitSearch = () => {
     setActive(false);
