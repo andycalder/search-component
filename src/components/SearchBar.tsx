@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styled, { css } from 'styled-components';
+import Map from './Map';
 import SearchControl from './SearchControl';
 import SearchPage from './SearchPage';
 import FilterButton from './FilterButton';
@@ -13,7 +14,7 @@ const Controls = styled.div`
   width: 392px;
   display: flex;
   flex-direction: column;
-  ${(props: {active: boolean}) => props.active && css`
+  ${(props: {listOpen: boolean}) => props.listOpen && css`
     height: 100vh;
     background-color: rgb(33, 33, 33);
   `}
@@ -55,26 +56,21 @@ const Input = styled.input`
 `;
 
 const SearchBar = () => {
-  const [active, setActive] = useState(false);
+  const [listOpen, setListOpen] = useState(false);
   const [text, setText] = useState('');
   const [filter, setFilter] = useState<null | Difficulty>(null);
   const [trail, setTrail] = useState<null | Trail>(null);
 
-  useEffect(() => {
-    if (trail) {
-      const event = new CustomEvent('showTrail', { detail: trail });
-      document.dispatchEvent(event);
-    }
-  }, [trail]);
-
-  const exitSearch = () => {
-    setActive(false);
+  const reset = () => {
+    setListOpen(false);
     setText('');
     setFilter(null);
+    setTrail(null);
   };
 
   const showTrail = (trail: Trail) => {
-    exitSearch();
+    setListOpen(false);
+    setText(trail.name);
     setTrail(trail);
   };
 
@@ -90,18 +86,19 @@ const SearchBar = () => {
 
   return (
     <>
-      <Controls active={active}>
+      <Map trail={trail} />
+      <Controls listOpen={listOpen}>
         <Container>
-          {active ?
+          {listOpen || text ?
             <SearchControl
               position="left"
               icon="chevron-left"
-              onClick={() => exitSearch()}
+              onClick={() => reset()}
             /> :
             <SearchControl
               position="left"
               icon="search"
-              onClick={() => setActive(true)}
+              onClick={() => setListOpen(true)}
             />
           }
           {text.length > 0 && 
@@ -115,7 +112,7 @@ const SearchBar = () => {
             type="text"
             placeholder="Find a trail"
             value={text}
-            onClick={() => setActive(true)}
+            onClick={() => setListOpen(true)}
             onInput={(e) => setText(e.currentTarget.value)}
           />
         </Container>
@@ -126,9 +123,9 @@ const SearchBar = () => {
           {renderFilterButton('Expert')}
           {renderFilterButton('Proline')}
         </ScrollingWrapper>
-        {active && <SearchPage query={text} filter={filter} showTrail={(trail: Trail) => showTrail(trail)} />}
+        {listOpen && <SearchPage query={text} filter={filter} showTrail={(trail: Trail) => showTrail(trail)} />}
       </Controls>
-      {trail && !active && <TrailCard trail={trail} />}
+      {trail && !listOpen && <TrailCard trail={trail} />}
     </>
   );
 };
